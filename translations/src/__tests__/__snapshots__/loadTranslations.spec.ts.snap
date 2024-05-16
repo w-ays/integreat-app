@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loadTranslations should correctly merge and transform translations 1`] = `
+{
+  "ar": {
+    "dashboard": {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+  },
+  "de": {
+    "app": {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": {
+      "events": "Veranstaltungen",
+      "localInformation": "Malte Informationen",
+      "news": "Malte Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Malte Angebote",
+    },
+  },
+  "en": {
+    "dashboard": {
+      "events": "Malte Events",
+      "localInformation": "Malte information",
+      "offers": "Malte Offers",
+    },
+  },
+  "kmr": {
+    "dashboard": {
+      "localInformation": "Zanyariyên xwecihî",
+    },
+  },
+  "zh-CN": {
+    "dashboard": {
+      "localInformation": "本地信息",
+    },
+  },
+}
+`;
+
+exports[`loadTranslations should correctly transform translations 1`] = `
+{
+  "ar": {
+    "dashboard": {
+      "events": "الفعاليات",
+      "localInformation": "معلومات محلية",
+      "offers": "العروض",
+    },
+  },
+  "de": {
+    "app": {
+      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "pageTitles": {
+        "localNews": "Lokale Nachrichten",
+        "notFound": "Seite nicht gefunden",
+        "tunews": "tünews",
+      },
+    },
+    "dashboard": {
+      "events": "Veranstaltungen",
+      "localInformation": "Lokale Informationen",
+      "news": "Nachrichten",
+      "newsAlternative": "Neuigkeiten",
+      "offers": "Angebote",
+    },
+  },
+  "kmr": {
+    "dashboard": {
+      "localInformation": "Zanyariyên xwecihî",
+    },
+  },
+  "zh-CN": {
+    "dashboard": {
+      "localInformation": "本地信息",
+    },
+  },
+}
+`;

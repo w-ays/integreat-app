@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false, // leads to oom when linting
+    "lib": ["ES5", "ES6"],
+    "moduleResolution": "Node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext",
+    "skipLibCheck": true,
+    "useDefineForClassFields": false,
+    "outDir": "dist"
+  },
+  "include": ["jest.config.ts", ".prettierrc", ".eslintrc.js"],
+  "references": [
+    { "path": "shared" },
+    { "path": "build-configs" },
+    { "path": "e2e-tests" },
+    { "path": "native" },
+    { "path": "tools" },
+    { "path": "translations" },
+    { "path": "web" }
+  ]
+}

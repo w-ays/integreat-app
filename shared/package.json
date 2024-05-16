@@ -1,0 +1,41 @@
+{
+  "name": "shared",
+  "version": "0.0.1",
+  "description": "Code shared between native and web mostly for api",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:changed": "yarn run test -o",
+    "test:watch": "yarn run test --watchAll",
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
+    "ts:check": "tsc --build"
+  },
+  "peerDependencies": {
+    "react": "18.2.0"
+  },
+  "dependencies": {
+    "@turf/distance": "^6.5.0",
+    "entities": "^4.5.0",
+    "htmlparser2": "^9.1.0",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "minisearch": "^6.3.0",
+    "normalize-path": "^3.0.0",
+    "normalize-strings": "^1.1.1",
+    "rrule": "2.8.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.10",
+    "@types/lodash": "^4.14.197",
+    "@types/luxon": "^3.3.1",
+    "@types/md5": "^2.3.2",
+    "@types/normalize-path": "^3.0.0",
+    "@types/react": "^18.2.79",
+    "@types/seedrandom": "^3.0.5",
+    "@types/uuid": "^9.0.2",
+    "md5": "^2.3.0",
+    "seedrandom": "^3.0.5"
+  }
+}

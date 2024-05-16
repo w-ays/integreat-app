@@ -1,0 +1,22 @@
+version: 2.1
+
+parameters:
+  api_triggered:
+    type: boolean
+    description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
+    default: false
+  workflow_type:
+    type: enum
+    enum:
+      [
+        native_beta_delivery,
+        native_production_delivery,
+        native_promotion,
+        web_beta_delivery,
+        web_production_delivery,
+        web_promotion,
+        delivery,
+        e2e_tests,
+        none,
+      ]
+    default: none

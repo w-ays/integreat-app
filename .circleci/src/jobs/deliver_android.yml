@@ -1,0 +1,37 @@
+# Deliver the app to the Google Play Store.
+parameters:
+  build_config_name:
+    type: enum
+    enum: [integreat, malte, aschaffenburg]
+    default: integreat
+  production_delivery:
+    description: Whether to deliver the build to production.
+    type: boolean
+docker:
+  - image: cimg/android:2023.02.1-node
+resource_class: small
+shell: /bin/bash -eo pipefail
+environment:
+  FASTLANE_SKIP_UPDATE_CHECK: true
+steps:
+  - checkout
+  - skip_job:
+      build_config_name: << parameters.build_config_name >>
+  - prepare_workspace
+  - restore_environment_variables
+  - restore_yarn_tools_cache
+  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_ruby_cache:
+      directory: native
+  - run:
+      name: Prepare Play Store metadata
+      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
+      working_directory: native
+  - run:
+      name: '[FL] Play Store Upload'
+      command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+      working_directory: native
+  - notify

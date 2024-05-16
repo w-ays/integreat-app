@@ -1,0 +1,44 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "isolatedModules": true,
+    "jsx": "react",
+    "module": "es2020",
+    "outDir": "dist",
+    "paths": {
+      "normalize-strings": ["../shared/@types/normalize-strings"],
+      "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
+      "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
+    },
+    "skipLibCheck": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
+    "types": ["jest", "node"]
+  },
+  "include": [
+    "src/**/*",
+    "jest.setup.ts",
+    "src/assets/licenses.json",
+    "index.ts",
+    "jest.config.ts",
+    "babel.config.js",
+    "react-native.config.js",
+    "metro.config.ci.js",
+    "metro.config.js",
+    "stylelint.config.js"
+  ],
+  "references": [
+    {
+      "path": "../translations"
+    },
+    {
+      "path": "../build-configs"
+    },
+    {
+      "path": "../shared"
+    }
+  ]
+}

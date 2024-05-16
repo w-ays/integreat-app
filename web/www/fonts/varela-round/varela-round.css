@@ -1,0 +1,10 @@
+/* There is no bold version of this charset */
+@font-face {
+  font-family: 'Varela Round';
+  font-weight: 400;
+  font-style: normal;
+  src: local('Varela Round'), /* Super Modern Browsers */ url('./varela-round-regular.woff2') format('woff2'),
+    /* Modern Browsers */ url('./varela-round-regular.woff') format('woff'),
+    /* Safari, Android, iOS */ url('./varela-round-regular.ttf') format('truetype');
+  font-display: swap;
+}
