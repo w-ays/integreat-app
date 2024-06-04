@@ -9,13 +9,14 @@ import DateModel from '../models/DateModel'
 import EventModel from '../models/EventModel'
 import FeaturedImageModel from '../models/FeaturedImageModel'
 import LocationModel from '../models/LocationModel'
-import { JsonEventType } from '../types'
-import { customApiBaseUrl } from '../../../web/src/constants/urls'
+import { EventResponse, JsonEventResponse, JsonEventType, PaginationType } from '../types'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
   city: string
   language: string
+  page: number,
+  perPage: number
 }
 
 const eventCompare = (event1: EventModel, event2: EventModel): number => {
@@ -38,16 +39,16 @@ const eventCompare = (event1: EventModel, event2: EventModel): number => {
   return event1.title.localeCompare(event2.title)
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
-  new EndpointBuilder<ParamsType, Array<EventModel>>(EVENTS_ENDPOINT_NAME)
+
+export default (baseUrl: string): Endpoint<ParamsType, EventResponse> =>
+  new EndpointBuilder<ParamsType, EventResponse>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        //`${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True`,
-          `${customApiBaseUrl}/db/events`,
+        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True&page=${params.page}&per_page=${params.perPage}`
     )
     .withMapper(
-      (json: Array<JsonEventType>): Array<EventModel> =>
-        json
+      (json: JsonEventResponse): EventResponse => {
+        const events = json.events
           .map((event: JsonEventType): EventModel => {
             const eventData = event.event
             const allDay = eventData.all_day
@@ -65,30 +66,46 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               location:
                 event.location.id !== null
                   ? new LocationModel({
-                      id: event.location.id,
-                      name: event.location.name,
-                      address: event.location.address,
-                      town: event.location.town,
-                      postcode: event.location.postcode,
-                      country: event.location.country,
-                      latitude: event.location.latitude,
-                      longitude: event.location.longitude,
-                    })
+                    id: event.location.id,
+                    name: event.location.name,
+                    address: event.location.address,
+                    town: event.location.town,
+                    postcode: event.location.postcode,
+                    country: event.location.country,
+                    latitude: event.location.latitude,
+                    longitude: event.location.longitude,
+                  })
                   : null,
               excerpt: decodeHTML(event.excerpt),
               availableLanguages: mapAvailableLanguages(event.available_languages),
               lastUpdate: DateTime.fromISO(event.last_updated),
               featuredImage: event.featured_image
                 ? new FeaturedImageModel({
-                    description: event.featured_image.description,
-                    thumbnail: event.featured_image.thumbnail[0],
-                    medium: event.featured_image.medium[0],
-                    large: event.featured_image.large[0],
-                    full: event.featured_image.full[0],
-                  })
+                  description: event.featured_image.description,
+                  thumbnail: event.featured_image.thumbnail[0],
+                  medium: event.featured_image.medium[0],
+                  large: event.featured_image.large[0],
+                  full: event.featured_image.full[0],
+                })
                 : null,
             })
           })
-          .sort(eventCompare),
+          .sort(eventCompare);
+
+        const pagination: PaginationType = {
+          total: json.pagination.total,
+          per_page: json.pagination.per_page,
+          current_page: json.pagination.current_page,
+          next_page: json.pagination.next_page,
+          last_page: json.pagination.last_page
+        };
+
+        return { events, pagination };
+      }
     )
     .build()
+
+
+
+
+

@@ -1,3 +1,6 @@
+import exp from 'node:constants'
+import EventModel from './models/EventModel'
+
 export type JsonAvailableLanguagesType = Record<
   string,
   {
@@ -91,6 +94,21 @@ export type JsonPoiType = {
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
   category: JsonPoiCategoryType
+}
+export type JsonEventResponse={
+  pagination: PaginationType
+  events: JsonEventType[]
+}
+export type EventResponse = {
+  pagination: PaginationType
+  events: EventModel[]
+}
+export type PaginationType = {
+  total: number
+  per_page: number
+  current_page: number
+  next_page: number | null
+  last_page: number
 }
 export type JsonEventType = {
   id: number

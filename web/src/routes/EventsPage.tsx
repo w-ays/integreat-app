@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -23,6 +23,9 @@ import PageDetail from '../components/PageDetail'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+import Pagination from 'shared/utils/Pagination'
+import eventModel from 'shared/api/models/EventModel'
+import * as events from 'node:events'
 
 const Spacing = styled.div`
   display: flex;
@@ -36,12 +39,17 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const { eventId } = useParams()
   const { t } = useTranslation('events')
   const navigate = useNavigate()
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 10;
+  const { data: eventResponse, loading, error: eventsError } = useLoadFromEndpoint(
+    createEventsEndpoint,
+    cmsApiBaseUrl,
+    { city: cityCode, language: languageCode, page: currentPage,perPage} // Pass currentPage
+  );
 
-  const {
-    data: events,
-    loading,
-    error: eventsError,
-  } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+  useEffect(() => {
+  }, [currentPage]);
+
 
   if (!city) {
     return null
@@ -49,7 +57,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
-  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
+  const event = eventId ? eventResponse?.events.find(it => it.path === pathnameWithoutDate) : null
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = event
@@ -87,7 +95,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  if (!events || (eventId && !event)) {
+  if (!eventResponse?.events || (eventId && !event)) {
     const error =
       eventsError ||
       new NotFoundError({
@@ -137,7 +145,13 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <Caption title={t('events')} />
-      <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
+      <List noItemsMessage={t('currentlyNoEvents')} items={eventResponse?.events} renderItem={renderEventListItem} />
+      <Pagination
+        totalItems={eventResponse?.pagination.total ?? 0}
+        itemsPerPage={perPage}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </CityContentLayout>
   )
 }
