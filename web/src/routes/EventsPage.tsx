@@ -113,14 +113,14 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   }
 
   if (event) {
-    const { featuredImage, lastUpdate, content, title, location, date } = event
-
+    const { thumbnail, lastUpdate, content, title, location, date } = event
+    console.log("thumbnail: ",thumbnail);
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <JsonLdEvent event={event} />
         <Page
-          thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
+          thumbnailSrcSet={thumbnail} //{featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
           lastUpdate={lastUpdate}
           content={content}
           title={title}

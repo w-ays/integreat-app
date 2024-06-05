@@ -6,7 +6,7 @@ import Caption from './Caption'
 import LastUpdateInfo from './LastUpdateInfo'
 import RemoteContent from './RemoteContent'
 
-export const THUMBNAIL_WIDTH = 300
+export const THUMBNAIL_WIDTH = 500
 
 const Thumbnail = styled.img`
   display: flex;
@@ -41,8 +41,8 @@ const Page = ({
   Footer,
 }: PageProps): ReactElement => (
   <>
-    {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
+    {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
     {BeforeContent}
     <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
     {AfterContent}
