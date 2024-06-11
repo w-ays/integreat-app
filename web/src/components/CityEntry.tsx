@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { cityContentPath, normalizeString } from 'shared'
+import { cityContentPath, eventContentPath, normalizeString } from 'shared'
 import { CityModel } from 'shared/api'
 
 const MAX_NUMBER_OF_ALIASES = 3
@@ -42,7 +42,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
       : []
 
   return (
-    <CityListItem to={cityContentPath({ cityCode: city.code, languageCode: language })}>
+    <CityListItem to={eventContentPath({ cityCode: city.code, languageCode: language })}>
       <Highlighter
         searchWords={[filterText]}
         sanitize={normalizeString}

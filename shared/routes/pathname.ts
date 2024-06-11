@@ -33,6 +33,9 @@ const constructPathname = (parts: Array<string | null | undefined>) => {
 export const cityContentPath = ({ cityCode, languageCode, route, path }: CityContentRouteUrlType): string =>
   constructPathname([cityCode, languageCode, route, path])
 
+export const eventContentPath = ({ cityCode, languageCode }: CityContentRouteUrlType): string =>
+  constructPathname([cityCode, languageCode, EVENTS_ROUTE])
+
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
   if (
     routeInformation.route === JPAL_TRACKING_ROUTE ||

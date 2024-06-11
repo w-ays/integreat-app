@@ -85,7 +85,6 @@ class InternalPathnameParser {
 
   dashboard = (): RouteInformationType => {
     const fixedCity = this._fixedCity
-
     if (fixedCity) {
       // '/', '/landing', '/abapp' or '/abapp/'de'
       if (this._length <= 2 && (this._length === 0 || this.isFixedCity() || this._parts[0] === LANDING_ROUTE)) {
@@ -108,7 +107,6 @@ class InternalPathnameParser {
         cityContentPath,
       }
     }
-
     return null
   }
 
@@ -245,8 +243,8 @@ class InternalPathnameParser {
 
   route = (): RouteInformationType =>
     this.landing() ||
-    this.jpalTracking() ||
     this.events() ||
+    this.jpalTracking() ||
     this.pois() ||
     this.offers() ||
     this.disclaimer() ||

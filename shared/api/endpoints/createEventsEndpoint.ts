@@ -43,8 +43,12 @@ const eventCompare = (event1: EventModel, event2: EventModel): number => {
 export default (baseUrl: string): Endpoint<ParamsType, EventResponse> =>
   new EndpointBuilder<ParamsType, EventResponse>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string =>
-        `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True&page=${params.page}&per_page=${params.perPage}`
+      (params: ParamsType): string =>{
+        params.page === undefined ? params.page = 1 : params.page
+        params.perPage === undefined ? params.perPage = 1000 : params.perPage
+        return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/events/?combine_recurring=True&page=${params.page}&per_page=${params.perPage}`
+      }
+
     )
     .withMapper(
       (json: JsonEventResponse): EventResponse => {

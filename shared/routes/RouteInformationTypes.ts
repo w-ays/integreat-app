@@ -84,12 +84,12 @@ export type SearchRouteInformationType = ParamsType & {
 
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType
+  | EventsRouteInformationType
   | CityNotCooperatingInformationType
   | JpalTrackingRouteInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType
-  | EventsRouteInformationType
   | PoisRouteInformationType
   | LicensesInformationType
   | SearchRouteInformationType

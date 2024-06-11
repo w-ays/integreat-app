@@ -155,7 +155,7 @@ const Navigator = (): ReactElement | null => {
     } else if (!cityCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: CATEGORIES_ROUTE })
+      updateInitialRoute({ name: EVENTS_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
