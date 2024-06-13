@@ -9,11 +9,11 @@ React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.m
 - [CMS](#cms)
 - [Build Configs](docs/build-configs.md)
 - [Delivery](docs/delivery-environments.md)
-- [General Repository Documentation](../README.md)
+- [General Repository Documentation](../ORIGINAL_README)
 
 ## Project Setup
 
-_Make sure you read and followed the steps in the [general README](../README.md#project-setup)._
+_Make sure you read and followed the steps in the [general README](../ORIGINAL_README#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
 - Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run Configurations.
