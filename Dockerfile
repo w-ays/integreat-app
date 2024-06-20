@@ -1,8 +1,6 @@
 # Stage 1: Build the project
 FROM node:alpine as build
 
-RUN npm install --global cross-env
-
 WORKDIR /app
 
 COPY . .
